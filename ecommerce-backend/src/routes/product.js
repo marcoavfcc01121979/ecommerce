@@ -11,21 +11,24 @@ const {
   listRelated, 
   listCategories, 
   listBySearch, 
-  photo } = require('../controllers/ProductController');
+  photo,
+  listSearch  } = require('../controllers/ProductController');
 const { requireSignin, isAuth, isAdmin } = require('../controllers/AuthController');
 const { userById } = require('../controllers/UserController');
 
 
-router.get('/product/:productId', read)
+router.get('/product/:productId', read);
 router.post("/product/create/:userId", requireSignin, isAuth, isAdmin, create);
 router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, remove);
 router.put('/product/:productId/:userId', requireSignin, isAuth, isAdmin, update);
 
 router.get('/products', list);
+router.get('/products/search', listSearch);
 router.get('/products/related/:productId', listRelated);
 router.get('/products/categories', listCategories);
-router.post('/product/photo/:productId', photo);
 router.post('/products/by/search', listBySearch);
+router.get('/product/photo/:productId', photo);
+
 
 
 router.param('userId', userById);
